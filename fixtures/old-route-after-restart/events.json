@@ -1,0 +1,102 @@
+{
+  "policy": {
+    "routing": [
+      {
+        "node": "right",
+        "start": null,
+        "end": null,
+        "epoch": 1
+      }
+    ],
+    "entries": [
+      [
+        "站/一",
+        1,
+        "old.bin"
+      ],
+      [
+        "站/二",
+        2,
+        "b.bin"
+      ]
+    ],
+    "nodes": {
+      "right": 40,
+      "left": 30
+    }
+  },
+  "objects": {
+    "old.bin": {
+      "bytes": 7,
+      "sha256": "817708232072010f5ba3eea549b8722723656bb8a72ea2538912305f602b6a2a"
+    },
+    "b.bin": {
+      "bytes": 4,
+      "sha256": "dd3bfe5f7da1dd252da75ad13a4ec8c5ff78a68aa1677a1adae1e934f1a76057"
+    },
+    "new.bin": {
+      "bytes": 5,
+      "sha256": "bf3caab71c5c53991441e5727290b82745b6231e4787bd79d131d307e9196a2e"
+    }
+  },
+  "events": [
+    {
+      "at": 0,
+      "action": "split",
+      "move": "m1",
+      "start": "站/",
+      "end": "站0",
+      "target": "left"
+    },
+    {
+      "at": 1,
+      "action": "copy",
+      "move": "m1",
+      "origin_pos": 1,
+      "key": "站/一",
+      "file": "old.bin"
+    },
+    {
+      "at": 2,
+      "action": "copy",
+      "move": "m1",
+      "origin_pos": 2,
+      "key": "站/二",
+      "file": "b.bin"
+    },
+    {
+      "at": 3,
+      "action": "checkpoint",
+      "move": "m1",
+      "through": 2
+    },
+    {
+      "at": 4,
+      "action": "try_cutover",
+      "move": "m1"
+    },
+    {
+      "at": 5,
+      "action": "restart",
+      "node": "right"
+    },
+    {
+      "at": 6,
+      "action": "write",
+      "node": "right",
+      "request": "last",
+      "key": "站/一",
+      "epoch": 1,
+      "file": "new.bin"
+    },
+    {
+      "at": 7,
+      "action": "list",
+      "id": "q",
+      "prefix": "站/",
+      "size": 2,
+      "until": 12
+    }
+  ],
+  "packets": []
+}

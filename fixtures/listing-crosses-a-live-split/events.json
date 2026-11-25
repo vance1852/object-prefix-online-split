@@ -1,0 +1,217 @@
+{
+  "policy": {
+    "routing": [
+      {
+        "node": "west",
+        "start": null,
+        "end": null,
+        "epoch": 4
+      }
+    ],
+    "entries": [
+      [
+        "bank/a",
+        12,
+        "a.bin"
+      ],
+      [
+        "bank/k",
+        13,
+        "k.bin"
+      ],
+      [
+        "bank/q",
+        14,
+        "q.bin"
+      ],
+      [
+        "bank/z",
+        15,
+        "z.bin"
+      ],
+      [
+        "dock/a",
+        16,
+        "d.bin"
+      ]
+    ],
+    "nodes": {
+      "west": 60,
+      "east": 50
+    }
+  },
+  "objects": {
+    "a.bin": {
+      "bytes": 6,
+      "sha256": "e71dcce2d5c79a45e8a744867668d8e24e1ba70b893f38fb5c824164365a268c"
+    },
+    "k.bin": {
+      "bytes": 7,
+      "sha256": "5af6158185202f9ce4c3e06f3185ddd38e6709f003ba1969fdaf6831d863bd0f"
+    },
+    "q.bin": {
+      "bytes": 7,
+      "sha256": "fb8e3cf04fc36931d1ed0f991cea2e04963825f7c18e923eefea856511849ca4"
+    },
+    "z.bin": {
+      "bytes": 7,
+      "sha256": "ebfac0b2f8d7d5cf55b1bd2c71f28b1128f850cb8d94b4ec01d472331d2a9749"
+    },
+    "d.bin": {
+      "bytes": 6,
+      "sha256": "9e3253a3f813b2deb4f15c7338d39d01af0e922fae2a2243033391ce5f3d731b"
+    },
+    "new.bin": {
+      "bytes": 7,
+      "sha256": "83ae3240dc60adc14d0dda547266275003da4dac4ef449a65de8233792520c06"
+    }
+  },
+  "events": [
+    {
+      "at": 0,
+      "action": "list",
+      "id": "walk",
+      "prefix": "bank/",
+      "size": 2,
+      "until": 21
+    },
+    {
+      "at": 1,
+      "action": "split",
+      "move": "m4",
+      "start": "bank/k",
+      "end": "bank/z",
+      "target": "east"
+    },
+    {
+      "at": 2,
+      "action": "copy",
+      "move": "m4",
+      "origin_pos": 13,
+      "key": "bank/k",
+      "file": "k.bin"
+    },
+    {
+      "at": 3,
+      "action": "delete",
+      "node": "west",
+      "request": "d21",
+      "key": "bank/q",
+      "origin_pos": 17,
+      "epoch": 4
+    },
+    {
+      "at": 4,
+      "action": "write",
+      "node": "west",
+      "request": "w22",
+      "key": "bank/k",
+      "origin_pos": 18,
+      "epoch": 4,
+      "file": "new.bin"
+    },
+    {
+      "at": 5,
+      "action": "copy",
+      "move": "m4",
+      "origin_pos": 14,
+      "key": "bank/q",
+      "file": "q.bin"
+    },
+    {
+      "at": 6,
+      "action": "checkpoint",
+      "move": "m4",
+      "through": 16
+    },
+    {
+      "at": 7,
+      "action": "try_cutover",
+      "move": "m4"
+    },
+    {
+      "at": 8,
+      "action": "copy",
+      "move": "m4",
+      "origin_pos": 17,
+      "key": "bank/q",
+      "tombstone": true
+    },
+    {
+      "at": 9,
+      "action": "copy",
+      "move": "m4",
+      "origin_pos": 18,
+      "key": "bank/k",
+      "file": "new.bin"
+    },
+    {
+      "at": 10,
+      "action": "checkpoint",
+      "move": "m4",
+      "through": 18
+    },
+    {
+      "at": 11,
+      "action": "try_cutover",
+      "move": "m4"
+    },
+    {
+      "at": 12,
+      "action": "write",
+      "node": "east",
+      "request": "w22",
+      "key": "bank/k",
+      "epoch": 5,
+      "file": "new.bin"
+    },
+    {
+      "at": 13,
+      "action": "continuation",
+      "id": "walk"
+    },
+    {
+      "at": 14,
+      "action": "list",
+      "id": "current",
+      "prefix": "bank/",
+      "size": 4,
+      "until": 19
+    },
+    {
+      "at": 15,
+      "action": "get",
+      "key": "bank/q"
+    },
+    {
+      "at": 16,
+      "action": "retire",
+      "node": "west",
+      "move": "m4"
+    }
+  ],
+  "packets": [
+    {
+      "method": "POST",
+      "path": "/nodes/east/copies/m4",
+      "status": 202,
+      "reply": {
+        "state": "received"
+      },
+      "body": null,
+      "drop": false,
+      "lag_ms": 0
+    },
+    {
+      "method": "POST",
+      "path": "/nodes/east/copies/m4",
+      "status": 503,
+      "reply": {
+        "state": "unconfirmed"
+      },
+      "body": null,
+      "drop": false,
+      "lag_ms": 0
+    }
+  ]
+}
